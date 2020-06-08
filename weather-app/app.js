@@ -1,11 +1,9 @@
-console.log("Starting");
+const request = require("request");
 
-setTimeout(() => {
-  console.log("2 sec timer");
-}, 2000);
+const url =
+  "http://api.weatherapi.com/v1/current.json?key=7c932ced4d6b4d41acb85714200806&q=delhi";
 
-setTimeout(() => {
-  console.log("0 sec timer");
-}, 0);
-
-console.log("Stopping");
+request({ url: url }, (error, response) => {
+  const data = JSON.parse(response.body);
+  console.log(data.current);
+});
