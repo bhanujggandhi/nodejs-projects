@@ -1,4 +1,3 @@
-const request = require("request");
 const forecast = require("./utils/forecast");
 
 const address = process.argv[2];
