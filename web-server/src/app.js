@@ -3,19 +3,31 @@ const express = require("express");
 const app = express();
 
 app.get("", (req, res) => {
-  res.send("Hello express!");
+  res.send("<h1>Hello express!</h1>");
 });
 
 app.get("/help", (req, res) => {
-  res.send("Help page");
+  res.send({
+    name: "Bhanuj",
+    age: 19,
+  });
 });
 
 app.get("/about", (req, res) => {
-  res.send("This is about page");
+  res.send("<code>This is about page</code>");
 });
 
 app.get("/weather", (req, res) => {
-  res.send("<h1>Weather</h1>");
+  res.send([
+    {
+      name: "Rahul",
+      dialogue: "Naam toh suna hoga",
+    },
+    {
+      name: "Raj",
+      dialgue: "Tum nai smjhogi simran, Kuch kuch hota h",
+    },
+  ]);
 });
 
 app.listen(3000, () => {
