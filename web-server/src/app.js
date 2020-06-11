@@ -4,17 +4,27 @@ const express = require("express");
 const app = express();
 const publicDirectoryPath = path.join(__dirname, "../public");
 
+app.set("view engine", "hbs");
 app.use(express.static(publicDirectoryPath));
 
-app.get("/help", (req, res) => {
-  res.send({
-    name: "Bhanuj",
-    age: 19,
+app.get("", (req, res) => {
+  res.render("index", {
+    title: "Weather",
+    name: "Bhanuj Gandhi",
   });
 });
 
 app.get("/about", (req, res) => {
-  res.send("<code>This is about page</code>");
+  res.render("about", {
+    title: "About me",
+    name: "Bhanuj Gandhi",
+  });
+});
+
+app.get("/help", (req, res) => {
+  res.render("help", {
+    helpText: "This is help text",
+  });
 });
 
 app.get("/weather", (req, res) => {
