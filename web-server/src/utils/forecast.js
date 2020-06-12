@@ -11,14 +11,16 @@ const forecast = (address, callback) => {
     } else if (body.error) {
       callback(body.error.message, undefined);
     } else {
-      callback(
-        undefined,
-        `It is ${body.forecast.forecastday[0].day.condition.text} outside in ${
-          body.location.name
-        } with ${body.current.temp_c} degrees currently. There is a ${
+      callback(undefined, {
+        forecast: `It is ${
+          body.forecast.forecastday[0].day.condition.text
+        } outside in ${body.location.name} with ${
+          body.current.temp_c
+        } degrees currently. There is a ${
           body.current.precip_mm * 10
-        }% chance of rain.`
-      );
+        }% chance of rain.`,
+        location: `${body.location.name}, ${body.location.region}, ${body.location.country}`,
+      });
     }
   });
 };

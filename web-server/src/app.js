@@ -47,9 +47,13 @@ app.get("/weather", (req, res) => {
     });
   }
 
-  forecast(req.query.address, (error, data) => {
+  forecast(req.query.address, (error, { forecast, location } = {}) => {
     if (error) return res.send({ error });
-    res.send({ data });
+    res.send({
+      forecast,
+      location,
+      address: req.query.address,
+    });
   });
 });
 
