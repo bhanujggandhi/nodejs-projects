@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+const forecast = require("./utils/forecast");
 
 const app = express();
 
@@ -46,23 +47,9 @@ app.get("/weather", (req, res) => {
     });
   }
 
-  res.send({
-    forecast: "It is raining",
-    location: "Panipat",
-    address: req.query.address,
-  });
-});
-
-app.get("/products", (req, res) => {
-  if (!req.query.search) {
-    return res.send({
-      error: "You must provide a search term",
-    });
-  }
-
-  console.log(req.query);
-  res.send({
-    products: [],
+  forecast(req.query.address, (error, data) => {
+    if (error) return res.send({ error });
+    res.send({ data });
   });
 });
 
