@@ -76,5 +76,50 @@ MongoClient.connect(
     //     console.log(result.ops);
     //   }
     // );
+
+    // db.collection("users").findOne(
+    //   { _id: new ObjectID("5ee650a8072c4227e01b4ca8") },
+    //   (error, user) => {
+    //     if (error) {
+    //       return console.log("Unable to fetch");
+    //     }
+
+    //     console.log(user);
+    //   }
+    // );
+    // db.collection("users")
+    //   .find({ age: 19 })
+    //   .toArray((error, users) => {
+    //     console.log(users);
+    //   });
+
+    // db.collection("users")
+    //   .find({ age: 19 })
+    //   .count((error, count) => {
+    //     console.log(count);
+    //   });
+
+    // db.collection("tasks").findOne(
+    //   {
+    //     _id: new ObjectID("5ee64a6ec1c81030b8da778a"),
+    //   },
+    //   (error, task) => {
+    //     if (error) {
+    //       return console.log(error);
+    //     }
+
+    //     console.log(task);
+    //   }
+    // );
+
+    // db.collection("tasks")
+    //   .find({ completed: true })
+    //   .toArray((error, task) => {
+    //     if (error) {
+    //       return console.log(error);
+    //     }
+
+    //     console.log(task);
+    //   });
   }
 );
