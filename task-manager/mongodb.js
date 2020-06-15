@@ -14,5 +14,42 @@ MongoClient.connect(
     }
 
     const db = client.db(databaseName);
+
+    // db.collection("users")
+    //   .updateOne(
+    //     {
+    //       _id: new ObjectID("5ee64736320c5e5b54b0973b"),
+    //     },
+    //     {
+    //       $set: {
+    //         name: "Kirat",
+    //         age: 20,
+    //       },
+    //     }
+    //   )
+    //   .then((result) => {
+    //     console.log(result.result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    db.collection("tasks")
+      .updateMany(
+        {
+          completed: false,
+        },
+        {
+          $set: {
+            completed: true,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 );
