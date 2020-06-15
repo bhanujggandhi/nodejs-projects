@@ -19,6 +19,8 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
+    // ========================= CREATE =================================
+
     // db.collection("users").insertOne(
     //   {
     //     name: "Dollar",
@@ -77,6 +79,8 @@ MongoClient.connect(
     //   }
     // );
 
+    // =========================== READ =====================================
+
     // db.collection("users").findOne(
     //   { _id: new ObjectID("5ee650a8072c4227e01b4ca8") },
     //   (error, user) => {
@@ -120,6 +124,69 @@ MongoClient.connect(
     //     }
 
     //     console.log(task);
+    //   });
+
+    // ================================ UPDATE ==================================
+
+    // db.collection("users")
+    //   .updateOne(
+    //     {
+    //       _id: new ObjectID("5ee64736320c5e5b54b0973b"),
+    //     },
+    //     {
+    //       $set: {
+    //         name: "Kirat",
+    //         age: 20,
+    //       },
+    //     }
+    //   )
+    //   .then((result) => {
+    //     console.log(result.result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // db.collection("tasks")
+    //   .updateMany(
+    //     {
+    //       completed: false,
+    //     },
+    //     {
+    //       $set: {
+    //         completed: true,
+    //       },
+    //     }
+    //   )
+    //   .then((result) => {
+    //     console.log(result.result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // ================================== DELETE =====================================
+
+    // db.collection("users")
+    //   .deleteMany({
+    //     age: 19,
+    //   })
+    //   .then((result) => {
+    //     console.log(result.result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // db.collection("tasks")
+    //   .deleteOne({
+    //     description: "Cancel haridwar tour",
+    //   })
+    //   .then((result) => {
+    //     console.log(result.result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
     //   });
   }
 );
