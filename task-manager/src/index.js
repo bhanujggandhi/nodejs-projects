@@ -14,15 +14,15 @@ const port = process.env.PORT || 3000;
 //   }
 // });
 
-app.use((req, res, next) => {
-  if (req.method) {
-    res
-      .status(503)
-      .send(
-        "This site is in maintainance mode. Please try again after sometime"
-      );
-  }
-});
+// app.use((req, res, next) => {
+//   if (req.method) {
+//     res
+//       .status(503)
+//       .send(
+//         "This site is in maintainance mode. Please try again after sometime"
+//       );
+//   }
+// });
 
 app.use(express.json());
 app.use(userRouter);
