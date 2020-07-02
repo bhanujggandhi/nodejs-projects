@@ -6,6 +6,15 @@ const router = new express.Router();
 
 const upload = multer({
   dest: "avatar",
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("Please upload an image. (.jpg, .jpeg, .png)"));
+    }
+    cb(undefined, true);
+  },
 });
 
 router.post("/users", async (req, res) => {
