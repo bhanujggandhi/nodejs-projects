@@ -7,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const multer = require("multer");
+const { Error } = require("mongoose");
 const upload = multer({
   dest: "images",
   limits: {
@@ -25,9 +26,16 @@ const upload = multer({
   },
 });
 
-app.post("/upload", upload.single("upload"), (req, res) => {
-  res.send();
-});
+app.post(
+  "/upload",
+  upload.single("upload"),
+  (req, res) => {
+    res.send();
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
 
 app.use(express.json());
 app.use(userRouter);
