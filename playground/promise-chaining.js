@@ -1,5 +1,5 @@
-require("../src/db/mongoose");
-const User = require("../src/models/user");
+require("../task-manager/src/db/mongoose");
+const User = require("../task-manager/src/models/user");
 
 //5eee78243dc3a33c8c7ecedf
 
