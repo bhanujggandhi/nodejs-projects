@@ -78,6 +78,41 @@ describe("Task Operations", () => {
       .send()
       .expect(200);
   });
+
+  it("Should fetch only completed tasks", async () => {
+    const response = await request(app)
+      .get("/tasks?completed=true")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send()
+      .expect(200);
+
+    expect(response.body[0]).toMatchObject({
+      completed: true,
+    });
+  });
+
+  it("Should fetch only incomplete tasks", async () => {
+    const response = await request(app)
+      .get("/tasks?completed=false")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send()
+      .expect(200);
+
+    expect(response.body[0]).toMatchObject({
+      completed: false,
+    });
+  });
+
+  // Todo: Compare arrays if sorted
+  it("Should sort tasks by createdAt", async () => {
+    await request(app)
+      .get("/tasks?sortBy=createdAt")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send()
+      .expect(200);
+  });
+
+  // Should fetch page of tasks
 });
 
 describe("Task Boundaries Checkup", () => {

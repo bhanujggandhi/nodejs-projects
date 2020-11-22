@@ -39,7 +39,7 @@ const taskOne = {
 const taskTwo = {
   _id: new mongoose.Types.ObjectId(),
   description: "Second task",
-  completed: false,
+  completed: true,
   owner: userOneId,
 };
 
