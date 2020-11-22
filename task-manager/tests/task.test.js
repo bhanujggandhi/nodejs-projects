@@ -37,6 +37,29 @@ describe("Task Operations", () => {
 
     expect(response.body).toHaveLength(2);
   });
+
+  it("should get all tasks for the authenticated user", async () => {
+    const response = await request(app)
+      .get("/tasks")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send()
+      .expect(200);
+
+    expect(response.body).toHaveLength(2);
+  });
+
+  it("should update the task for authenticated user", async () => {
+    await request(app)
+      .patch(`/tasks/${taskOne._id}`)
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send({
+        completed: true,
+      })
+      .expect(200);
+
+    const task = await Task.findById(taskOne._id);
+    expect(task.completed).toBeTruthy();
+  });
 });
 
 describe("Task Security", () => {

@@ -5,7 +5,7 @@ const { userOne, userOneId, setupDatabase } = require("./fixtures/db");
 
 beforeEach(setupDatabase);
 
-describe("SingUp Tests", () => {
+describe("SignUp Tests", () => {
   jest.setTimeout(10000);
   test("should signup a new user", async () => {
     const response = await request(app)
@@ -33,6 +33,18 @@ describe("SingUp Tests", () => {
 
     // Asserting about not storing raw password
     expect(user.password).not.toBe("MyPass777!");
+  });
+
+  it("should not signup user with invalid name/email/password", async () => {
+    await request(app)
+      .post("/users")
+      .send({
+        name: "abc",
+        email: "abcn11",
+        password: "MyPass777!",
+        age: 20,
+      })
+      .expect(400);
   });
 });
 
@@ -87,10 +99,6 @@ describe("Profile Tests", () => {
     expect(user).toBeNull();
   });
 
-  it("should not delete account for unauthenticated user", async () => {
-    await request(app).delete("/users/me").send().expect(401);
-  });
-
   it("should upload avatar image", async () => {
     await request(app)
       .post("/users/me/avatar")
@@ -115,6 +123,12 @@ describe("Profile Tests", () => {
     const user = await User.findById(userOne._id);
     expect(user.name).toBe("Jake");
   });
+});
+
+describe("User Security Test", () => {
+  it("should not delete account for unauthenticated user", async () => {
+    await request(app).delete("/users/me").send().expect(401);
+  });
 
   it("should not update invalid user fields", async () => {
     await request(app)
@@ -123,6 +137,27 @@ describe("Profile Tests", () => {
       .send({
         name: "Jake",
         address: "Anywhere on planet",
+      })
+      .expect(400);
+  });
+
+  it("Should not update user if unauthenticated", async () => {
+    await request(app)
+      .patch("/users/me")
+      .send({
+        name: "Jake",
+        age: 20,
+      })
+      .expect(401);
+  });
+
+  it("Should not update user with invalid name/email/password", async () => {
+    await request(app)
+      .patch("/users/me")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send({
+        name: "Jake",
+        age: "helo age",
       })
       .expect(400);
   });
