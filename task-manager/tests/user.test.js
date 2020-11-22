@@ -118,4 +118,29 @@ describe("Profile Tests", () => {
     const user = await User.findById(userOneId);
     expect(user.avatar).toEqual(expect.any(Buffer));
   });
+
+  it("should update valid user fields", async () => {
+    await request(app)
+      .patch("/users/me")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send({
+        name: "Jake",
+        age: 20,
+      })
+      .expect(200);
+
+    const user = await User.findById(userOne._id);
+    expect(user.name).toBe("Jake");
+  });
+
+  it("should not update invalid user fields", async () => {
+    await request(app)
+      .patch("/users/me")
+      .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+      .send({
+        name: "Jake",
+        address: "Anywhere on planet",
+      })
+      .expect(400);
+  });
 });
